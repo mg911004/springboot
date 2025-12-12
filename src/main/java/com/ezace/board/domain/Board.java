@@ -1,6 +1,7 @@
 package com.ezace.board.domain;
 
 import java.time.LocalDateTime;
+import java.util.stream.Stream;
 
 import jakarta.persistence.*;
 
@@ -15,16 +16,19 @@ public class Board {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "board_id")
+    @Column(name = "board_id" , nullable = false)
     private Long boardId;
+
+    @Column(name = "user_id" , nullable = false)
+    private String userId;
 
     @Column(name = "subject", nullable = false, length = 255)
     private String subject;
 
-    @Column(name = "content", columnDefinition = "TEXT")
+    @Column(name = "content", nullable = false, columnDefinition = "TEXT")
     private String content;
 
-    @Column(name = "reg_date" , updatable = false)
+    @Column(name = "reg_date" , nullable = false, updatable = false)
     private LocalDateTime regDate;
 
     @Column(name = "update_date")
@@ -44,13 +48,19 @@ public class Board {
     }
 
     // 생성자
-    public Board(String subject, String content) {
+    public Board(String subject, String content, String userId) {
         this.subject = subject;
         this.content = content;
+        this.userId = userId;
     }
 
     public void update(String subject, String content) {
         this.subject = subject;
         this.content = content;
+    }
+
+    public Stream<Board> map(Object object) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'map'");
     }
 }

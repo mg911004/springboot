@@ -34,20 +34,30 @@ public class BoardController {
     }
 
     @GetMapping
-    public ResponseEntity<List<BoardResponse>> getAllBoards() {
-        List<BoardResponse> boards =
-            boardService.getAllBoards().stream()
+    public ResponseEntity<List<BoardResponse>> getAllBoards(
+        @RequestParam(name = "user_id" , required = false) String user_id,
+        @RequestParam(name = "subject" , required = false) String subject,
+        @RequestParam(name = "content" , required = false) String content
+    ) {
+    
+        // 조건에 맞게 필터링
+        List<Board> boards = boardService.getAllBoards(user_id, subject, content);
+        
+        // Board -> BoardResponse 변환 후 반환
+        List<BoardResponse> boardResponses = boards.stream()
                 .map(BoardResponse::from)
                 .collect(Collectors.toList());
-        return ResponseEntity.ok(boards);
+    
+        return ResponseEntity.ok(boardResponses);
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<BoardResponse> getBoardById(@PathVariable("id") Long id) {
         Optional<Board> board = boardService.getBoardById(id);
         return board.map(BoardResponse::from)
             .map(ResponseEntity::ok)
-            .orElse(ResponseEntity.notFound().build());
+            .orElse(ResponseEntity.notFound().build());             
     }
 
     @PostMapping
