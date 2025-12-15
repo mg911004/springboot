@@ -15,9 +15,10 @@ import com.ezace.board.exception.NotFoundException;
 import com.ezace.board.repository.BoardRepository;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class BoardService {
 
+    private static final String DEFAULT_USER_ID = "testUserId";
     private final BoardRepository boardRepository;
 
     @Autowired
@@ -25,8 +26,7 @@ public class BoardService {
         this.boardRepository = boardRepository;
     }
 
-    @Transactional(readOnly = true)
-    public List<Board> getAllBoards(String userId, String subject, String content) {
+    public List<Board> getBoardList(String userId, String subject, String content) {
         List<Board> boards = boardRepository.findAll();
 
         // 조건에 맞는 필터링
@@ -40,18 +40,17 @@ public class BoardService {
     }
 
     
-    @Transactional(readOnly = true)
     public Optional<Board> getBoardById(Long boardId) {
         return boardRepository.findById(boardId);
     }
 
-        
+    @Transactional
     public Board createBoard(BoardRequest request) {
-        System.out.println(request);
-        Board board = new Board(request.getSubject(), request.getContent() , "testUserId");
+        Board board = new Board(request.getSubject(), request.getContent() , DEFAULT_USER_ID);
         return boardRepository.save(board);
     }
 
+    @Transactional
     public Board updateBoard(Long boardId, BoardRequest request) {
         Board board =
             boardRepository
@@ -63,6 +62,7 @@ public class BoardService {
         return boardRepository.save(board);
     }
 
+    @Transactional
     public void deleteBoard(Long boardId) {
         Board board =
             boardRepository

@@ -58,9 +58,4 @@ public class Board {
         this.subject = subject;
         this.content = content;
     }
-
-    public Stream<Board> map(Object object) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'map'");
-    }
 }
