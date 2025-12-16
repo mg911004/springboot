@@ -1,7 +1,6 @@
 package com.ezace.board.domain;
 
 import java.time.LocalDateTime;
-import java.util.stream.Stream;
 
 import jakarta.persistence.*;
 

@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 
 import jakarta.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -28,7 +27,6 @@ public class BoardController {
 
     private final BoardService boardService;
 
-    @Autowired
     public BoardController(BoardService boardService) {
         this.boardService = boardService;
     }
@@ -39,15 +37,15 @@ public class BoardController {
         @RequestParam(name = "subject" , required = false) String subject,
         @RequestParam(name = "content" , required = false) String content
     ) {
-    
+
         // 조건에 맞게 필터링
         List<Board> boards = boardService.getBoardList(user_id, subject, content);
-        
+
         // Board -> BoardResponse 변환 후 반환
         List<BoardResponse> boardResponses = boards.stream()
                 .map(BoardResponse::from)
                 .collect(Collectors.toList());
-    
+
         return ResponseEntity.ok(boardResponses);
     }
 
@@ -57,7 +55,7 @@ public class BoardController {
         Optional<Board> board = boardService.getBoardById(id);
         return board.map(BoardResponse::from)
             .map(ResponseEntity::ok)
-            .orElse(ResponseEntity.notFound().build());             
+            .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping

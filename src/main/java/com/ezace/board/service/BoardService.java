@@ -1,6 +1,5 @@
 package com.ezace.board.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -35,11 +34,11 @@ public class BoardService {
                 .filter(board -> (subject == null || board.getSubject().contains(subject)))  // subject 필터링
                 .filter(board -> (content == null || board.getContent().contains(content)))  // content 필터링
                 .collect(Collectors.toList());
-    
+
         return boards;
     }
 
-    
+
     public Optional<Board> getBoardById(Long boardId) {
         return boardRepository.findById(boardId);
     }
