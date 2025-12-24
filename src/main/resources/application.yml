@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: board
+  
+  datasource:
+    url: jdbc:mysql://localhost:3306/my_spring_db?serverTimezone=UTC&characterEncoding=UTF-8
+    username: root
+    password: 2569
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+
+springdoc:
+  swagger-ui:
+    path: /docs

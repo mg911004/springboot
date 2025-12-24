@@ -29,7 +29,7 @@ public class BoardServiceTest {
     private BoardService boardService;
 
     @Test
-    void getBoardById_정상_조회() {
+    void getBoardByIdTest() {
         // Given (준비)
         Long boardId = 1L;
         Board mockBoard = new Board("제목", "내용", "userA");
@@ -48,9 +48,8 @@ public class BoardServiceTest {
         verify(boardRepository, times(1)).findById(boardId);
     }
 
-
     @Test
-    void createBoard_정상_생성() {
+    void createBoardTest() {
         // Given (준비 단계)
         // 1. Service가 기대하는 타입인 BoardRequest DTO를 생성합니다.
         BoardRequest request = new BoardRequest("새 글 제목", "새 글 내용");

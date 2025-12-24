@@ -13,7 +13,6 @@ import lombok.Getter;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 public class BoardResponse {
-
     private final Long boardId;
     private final String userId;
     private final String subject;

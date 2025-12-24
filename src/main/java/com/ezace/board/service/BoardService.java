@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +19,6 @@ public class BoardService {
     private static final String DEFAULT_USER_ID = "testUserId";
     private final BoardRepository boardRepository;
 
-    @Autowired
     public BoardService(BoardRepository boardRepository) {
         this.boardRepository = boardRepository;
     }

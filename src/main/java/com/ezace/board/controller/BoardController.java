@@ -33,11 +33,13 @@ public class BoardController {
 
     @GetMapping
     public ResponseEntity<List<BoardResponse>> getBoardList(
-        @RequestParam(name = "user_id" , required = false) String user_id,
-        @RequestParam(name = "subject" , required = false) String subject,
-        @RequestParam(name = "content" , required = false) String content
+        @RequestParam(name = "user_id",required = false) String user_id,
+        @RequestParam(name = "subject",required = false) String subject,
+        @RequestParam(name = "content",required = false) String content
     ) {
-
+        // System.out.println(user_id);
+        // System.out.println(subject);
+        // System.out.println(content);
         // 조건에 맞게 필터링
         List<Board> boards = boardService.getBoardList(user_id, subject, content);
 
@@ -60,13 +62,16 @@ public class BoardController {
 
     @PostMapping
     public ResponseEntity<BoardResponse> createBoard(@Valid @RequestBody BoardRequest request) {
+        System.out.println(request.toString());
+        System.out.println(request.getSubject());
+        System.out.println(request.getContent());
         Board createdBoard = boardService.createBoard(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(BoardResponse.from(createdBoard));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<BoardResponse> updateBoard(
-            @PathVariable Long id, @Valid @RequestBody BoardRequest request) { //DTO로 매핑
+            @PathVariable("id") Long id, @Valid @RequestBody BoardRequest request) { //DTO로 매핑
         try {
             Board updatedBoard = boardService.updateBoard(id, request); // DTD -> 엔티티 객체로 변환후 서비스로 넘김
             return ResponseEntity.ok(BoardResponse.from(updatedBoard)); //서비스에서 추출한 최종 엔티티 객체를 가져와서 다시 DTD로 변환
